@@ -7,7 +7,9 @@ set expandtab
 set incsearch
 set noswapfile
 set nohlsearch
+set termguicolors
 set scrolloff=8
+set mouse=a
 set noshowmode " vim-airline has this
 "set rtp^=/usr/share/vim/vimfilesZZZ
 nnoremap <SPACE> <Nop>
