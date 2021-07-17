@@ -10,7 +10,7 @@ set nohlsearch
 set termguicolors
 set scrolloff=8
 set mouse=a
-" set noshowmode " vim-airline has this
+set noshowmode " vim-airline has this
 set clipboard+=unnamed
 nnoremap <SPACE> <Nop>
 
@@ -21,25 +21,24 @@ let mapleader = " "
 call plug#begin('~/.vim/plugged')
 
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-" Plug 'morhetz/gruvbox'
-Plug 'tomasiser/vim-code-dark'
+Plug 'morhetz/gruvbox'
+" Plug 'tomasiser/vim-code-dark'
 Plug 'dense-analysis/ale'
 Plug 'tomtom/tcomment_vim'
-" Plug 'kassio/neoterm'
-Plug 'vim-airline/vim-airline'
+"" Plug 'kassio/neoterm'
+" Plug 'vim-airline/vim-airline'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'} 
+" Plug 'neovim/nvim-lspconfig'
 " Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 " Plug 'junegunn/fzf.vim'
 
 call plug#end()
 
-
 " grubbox settings
-" let g:gruvbox_invert_selection = 0
-" colorscheme gruvbox
-colorscheme codedark
+let g:gruvbox_invert_selection = 0
+colorscheme gruvbox
+" colorscheme codedark
 set background=dark
-
 
 " TextEdit might fail if hidden is not set.
 set hidden
@@ -74,27 +73,27 @@ augroup highlight_yank
 augroup END
 
 
-" ALE settings
-let g:ale_linters_explicit = 1
-let g:ale_linters = {
-    \ 'python': ['flake8', 'pylint'],
-    \}
-let g:ale_fixers = {
-    \   'python': [ 'black' ],
-    \}
-let g:ale_fix_on_save = 1
+" " ALE settings
+" let g:ale_linters_explicit = 1
+" let g:ale_linters = {
+"     \ 'python': ['flake8', 'pylint'],
+"     \}
+" let g:ale_fixers = {
+"     \   'python': [ 'black' ],
+"     \}
+" let g:ale_fix_on_save = 1
 
-" COC
-" use <tab> for trigger completion and navigate to the next complete item
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~ '\s'
-endfunction
-
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
+" " COC
+" " use <tab> for trigger completion and navigate to the next complete item
+" function! s:check_back_space() abort
+"   let col = col('.') - 1
+"   return !col || getline('.')[col - 1]  =~ '\s'
+" endfunction
+"
+" function! s:check_back_space() abort
+"   let col = col('.') - 1
+"   return !col || getline('.')[col - 1]  =~# '\s'
+" endfunction
 
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gr <Plug>(coc-references)
@@ -144,19 +143,20 @@ let g:airline#extensions#tabline#fnamemod = ':t'             " dont show full pa
 
 
 
-" Treesitter modules
-"
-" Higlight
-lua <<EOF
-require'nvim-treesitter.configs'.setup {
-  highlight = {
-    enable = true,
-    custom_captures = {
-      -- Highlight the @foo.bar capture group with the "Identifier" highlight group.
-      ["foo.bar"] = "Identifier",
-    },
-  },
-}
-EOF
+" " Treesitter modules
+" "
+" " Higlight
+" lua <<EOF
+" require'nvim-treesitter.configs'.setup {
+"   highlight = {
+"     enable = true,
+"     custom_captures = {
+"       -- Highlight the @foo.bar capture group with the "Identifier" highlight group.
+"       ["foo.bar"] = "Identifier",
+"     },
+"   },
+" }
+" EOF
+" "
 
 
