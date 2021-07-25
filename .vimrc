@@ -16,18 +16,18 @@ nnoremap <SPACE> <Nop>
 
 let mapleader = " "
 
-" filetype plugin on 
-" syntax on 
+" filetype plugin on
+" syntax on
 call plug#begin('~/.vim/plugged')
 
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'morhetz/gruvbox'
-" Plug 'tomasiser/vim-code-dark'
+Plug 'tomasiser/vim-code-dark'
 Plug 'dense-analysis/ale'
 Plug 'tomtom/tcomment_vim'
 "" Plug 'kassio/neoterm'
-" Plug 'vim-airline/vim-airline'
-Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'} 
+Plug 'vim-airline/vim-airline'
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 " Plug 'neovim/nvim-lspconfig'
 " Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 " Plug 'junegunn/fzf.vim'
@@ -37,7 +37,7 @@ call plug#end()
 " grubbox settings
 let g:gruvbox_invert_selection = 0
 colorscheme gruvbox
-" colorscheme codedark
+colorscheme codedark
 set background=dark
 
 " TextEdit might fail if hidden is not set.
@@ -72,6 +72,10 @@ augroup highlight_yank
     autocmd TextYankPost * silent! lua require'vim.highlight'.on_yank("IncSearch", 50)
 augroup END
 
+" Press F9 to run python script
+autocmd FileType python map <buffer> <F9> :w<CR>:exec '!python3' shellescape(@%, 1)<CR>
+autocmd FileType python imap <buffer> <F9> <esc>:w<CR>:exec '!python3' shellescape(@%, 1)<CR>
+
 
 " " ALE settings
 " let g:ale_linters_explicit = 1
@@ -83,12 +87,12 @@ augroup END
 "     \}
 " let g:ale_fix_on_save = 1
 
-" " COC
-" " use <tab> for trigger completion and navigate to the next complete item
-" function! s:check_back_space() abort
-"   let col = col('.') - 1
-"   return !col || getline('.')[col - 1]  =~ '\s'
-" endfunction
+" COC
+" use <tab> for trigger completion and navigate to the next complete item
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~ '\s'
+endfunction
 "
 " function! s:check_back_space() abort
 "   let col = col('.') - 1
@@ -98,11 +102,11 @@ augroup END
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gr <Plug>(coc-references)
 
-inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+" inoremap <silent><expr> <TAB>
+"       \ pumvisible() ? "\<C-n>" :
+"       \ <SID>check_back_space() ? "\<TAB>" :
+"       \ coc#refresh()
+" inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 " turn terminal to normal mode with escape
 tnoremap <Esc> <C-\><C-n>
 
@@ -144,7 +148,6 @@ let g:airline#extensions#tabline#fnamemod = ':t'             " dont show full pa
 
 
 " Treesitter modules
-"
 " Higlight
 lua <<EOF
 require'nvim-treesitter.configs'.setup {
@@ -157,6 +160,25 @@ require'nvim-treesitter.configs'.setup {
   },
 }
 EOF
-"
 
 
+lua <<EOF
+require'nvim-treesitter.configs'.setup {
+  incremental_selection = {
+    enable = true,
+    keymaps = {
+      init_selection = "gnn",
+      node_incremental = "grn",
+      scope_incremental = "grc",
+      node_decremental = "grm",
+    },
+  },
+}
+EOF
+
+lua <<EOF
+require'nvim-treesitter.configs'.setup {
+    indent = {
+        enable = true
+    }
+ }
