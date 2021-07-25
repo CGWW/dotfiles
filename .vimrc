@@ -1,1 +1,1 @@
-/Users/CW/dev/dotfiles/.vimrc
+/Users/CW/.vimrc
